@@ -1,0 +1,34 @@
+<div class="main-container">
+  <h1>Welcome to the Main Page</h1>
+  <p>This is the music recommendation system. Choose what you like or what you want to explore</p>
+  
+  <div class="main-music-box">
+    <mat-form-field class="autocomplete-field">
+      <mat-label>Group/Band</mat-label>
+      <input type="text" 
+             matInput 
+             [formControl]="groupControl" 
+             [matAutocomplete]="groupAuto"
+             placeholder="Select a group">
+      <mat-autocomplete #groupAuto="matAutocomplete">
+        <mat-option *ngFor="let group of filteredGroups | async" [value]="group">
+          {{group}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="autocomplete-field">
+      <mat-label>Song</mat-label>
+      <input type="text" 
+             matInput 
+             [formControl]="songControl" 
+             [matAutocomplete]="songAuto"
+             placeholder="Select a song">
+      <mat-autocomplete #songAuto="matAutocomplete">
+        <mat-option *ngFor="let song of filteredSongs | async" [value]="song">
+          {{song}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>
