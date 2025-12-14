@@ -1,0 +1,16 @@
+.add-song-div {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    .add-song-autocomplete-field {
+        width: 250px;
+    }
+
+    .add-song-btn {
+        width: 100px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+}

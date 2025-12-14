@@ -1,0 +1,27 @@
+<div class="preferences-div">
+    <h3>Add song to playlist</h3>
+    <div class="add-song-div">
+        <mat-form-field class="add-song-autocomplete-field">
+            <mat-label>Artist</mat-label>
+            <input type="text" matInput [formControl]="artistControl" [matAutocomplete]="artistAuto"
+                placeholder="Select an artist">
+            <mat-autocomplete #artistAuto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let artist of filteredArtists | async" [value]="artist">
+                    {{artist}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="add-song-autocomplete-field">
+            <mat-label>Song</mat-label>
+            <input type="text" matInput [formControl]="songControl" [matAutocomplete]="songAuto"
+                placeholder="Select a song">
+            <mat-autocomplete #songAuto="matAutocomplete">
+                <mat-option *ngFor="let song of filteredSongs | async" [value]="song">
+                    {{song}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <button mat-raised-button class="add-song-btn" color="primary" (click)="addSongToPreferences()">Add</button>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+<h2>Playlist songs</h2>
+<div *ngFor="let choice of choices$ | async" class="playlist-item">
+    {{choice.artist}} - {{choice.name}}
+</div>

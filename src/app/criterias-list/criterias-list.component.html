@@ -1,0 +1,66 @@
+<h2>Recommendation criterias</h2>
+<form [formGroup]="criteriaListForm">
+    <mat-form-field [formGroup]="criteriaListForm" class="criterial-field">
+        <mat-label class="criterial-label">Genre</mat-label>
+        <mat-select formControlName="genre" class="criterial-select">
+            <mat-option class="criteria-option" value="rock">Rock</mat-option>
+            <mat-option class="criteria-option" value="pop">Pop</mat-option>
+            <mat-option class="criteria-option" value="jazz">Jazz</mat-option>
+            <mat-option class="criteria-option" value="classical">Classical</mat-option>
+            <mat-option class="criteria-option" value="hiphop">Hip-Hop</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field [formGroup]="criteriaListForm" class="criterial-field">
+        <mat-label class="criterial-label">Mood</mat-label>
+        <mat-select formControlName="mood" class="criterial-select">
+            <mat-option class="criteria-option" value="happy">Happy</mat-option>
+            <mat-option class="criteria-option" value="sad">Sad</mat-option>
+            <mat-option class="criteria-option" value="energetic">Energetic</mat-option>
+            <mat-option class="criteria-option" value="relaxed">Relaxed</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field [formGroup]="criteriaListForm"  class="criterial-field">
+        <mat-label class="criterial-label">Era</mat-label>
+        <mat-select formControlName="era" class="criterial-select">
+            <mat-option class="criteria-option" value="60s">60s</mat-option>
+            <mat-option class="criteria-option" value="70s">70s</mat-option>
+            <mat-option class="criteria-option" value="80s">80s</mat-option>
+            <mat-option class="criteria-option" value="90s">90s</mat-option>
+            <mat-option class="criteria-option" value="2000s">2000s</mat-option>
+            <mat-option class="criteria-option" value="2010s">2010s</mat-option>
+            <mat-option value="2020s">2020s</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field [formGroup]="criteriaListForm" class="criterial-field">
+        <mat-label class="criterial-label">Language</mat-label>
+        <mat-select formControlName="language" class="criterial-select">
+            <mat-option class="criteria-option" value="english">English</mat-option>
+            <mat-option class="criteria-option" value="spanish">Spanish</mat-option>
+            <mat-option class="criteria-option" value="french">French</mat-option>
+            <mat-option class="criteria-option" value="german">German</mat-option>
+            <mat-option class="criteria-option" value="japanese">Japanese</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field [formGroup]="criteriaListForm" class="criterial-field">
+        <mat-label class="criterial-label">Tempo</mat-label>
+        <mat-select formControlName="tempo" class="criterial-select">
+            <mat-option class="criteria-option" value="slow">Slow</mat-option>
+            <mat-option class="criteria-option" value="medium">Medium</mat-option>
+            <mat-option class="criteria-option" value="fast">Fast</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field [formGroup]="criteriaListForm" class="criterial-field">
+        <mat-label class="criterial-label">Artist</mat-label>
+        <mat-select formControlName="artist" class="criterial-select">
+            <mat-option class="criteria-option" value="artist1">Artist 1</mat-option>
+            <mat-option class="criteria-option" value="artist2">Artist 2</mat-option>
+            <mat-option class="criteria-option" value="artist3">Artist 3</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+</form>

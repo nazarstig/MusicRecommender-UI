@@ -1,26 +1,47 @@
 .main-container {
-  padding: 40px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-h1 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-p {
-  color: #666;
-  margin-bottom: 30px;
-}
-
-.main-music-box {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-top: 20px;
+  align-items: center;
 }
 
-.autocomplete-field {
-  width: 100%;
+.content-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* background-color: green; */
+  width: 80%;
+  margin-top: 20px;
+
+  .playlist-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    place-content: start;
+    width: 300px;
+    margin-left: 10px;
+  }
+
+  .criterias-div {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    place-content: start; */
+    /* width: 300px; */
+    margin-right: 100px;
+  }
 }
+
+.recommendation-btn-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+
+    button {
+      width: 90%;
+      height: 50px;
+      font-size: 18px;
+    }
+  }
