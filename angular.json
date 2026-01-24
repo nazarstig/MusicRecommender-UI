@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MusicRecommender": {
+    "MusicRecommender-UI": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "MusicRecommender:build:production"
+              "buildTarget": "MusicRecommender-UI:build:production"
             },
             "development": {
-              "buildTarget": "MusicRecommender:build:development"
+              "buildTarget": "MusicRecommender-UI:build:development"
             }
           },
           "defaultConfiguration": "development"

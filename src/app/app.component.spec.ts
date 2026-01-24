@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'MusicRecommender' title`, () => {
+  it(`should have the 'MusicRecommender-UI' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('MusicRecommender');
+    expect(app.title).toEqual('MusicRecommender-UI');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MusicRecommender');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MusicRecommender-UI');
   });
 });
