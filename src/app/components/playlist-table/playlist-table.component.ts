@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { SongInfo } from '../models/song-info';
+import { SongInfo } from '../../models/song-info';
 import { Select } from '@ngxs/store';
-import { MainState } from '../store/main.state';
+import { MainState } from '../../store/main.state';
 import { Observable, of } from 'rxjs';
 
 @Component({

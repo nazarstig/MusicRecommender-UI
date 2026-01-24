@@ -1,4 +1,4 @@
 export interface SongInfo {
-  artist: string | null;
-  name: string | null;
+  artist: string;
+  name: string;
 }

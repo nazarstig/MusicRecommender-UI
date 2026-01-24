@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
-import { SongInfo } from '../models/song-info';
+import { SongInfo } from '../../models/song-info';
 import { Store } from '@ngxs/store';
-import { AddSongToPlaylist } from '../store/main.actions';
+import { AddSongToPlaylist } from '../../store/main.actions';
+import { MainService } from '../../services/main.service';
 
 @Component({
   selector: 'app-add-song',
@@ -19,36 +20,39 @@ export class AddSongComponent {
 
   choices: SongInfo[] = [];
 
-  artists: string[] = [
-    'The Beatles',
-    'Queen',
-    'Led Zeppelin',
-    'Pink Floyd',
-    'The Rolling Stones',
-    'Nirvana',
-    'Radiohead',
-    'Arctic Monkeys',
-    'The Strokes',
-    'Red Hot Chili Peppers'
-  ];
+  artists: string[] = [];
+  //   'The Beatles',
+  //   'Queen',
+  //   'Led Zeppelin',
+  //   'Pink Floyd',
+  //   'The Rolling Stones',
+  //   'Nirvana',
+  //   'Radiohead',
+  //   'Arctic Monkeys',
+  //   'The Strokes',
+  //   'Red Hot Chili Peppers'
+  // ];
 
-  songs: string[] = [
-    'Bohemian Rhapsody',
-    'Stairway to Heaven',
-    'Hotel California',
-    'Smells Like Teen Spirit',
-    'Imagine',
-    'Hey Jude',
-    'Sweet Child O\' Mine',
-    'Wonderwall',
-    'Billie Jean',
-    'Come Together'
-  ];
+  songs: string[] = [];
+  //   'Bohemian Rhapsody',
+  //   'Stairway to Heaven',
+  //   'Hotel California',
+  //   'Smells Like Teen Spirit',
+  //   'Imagine',
+  //   'Hey Jude',
+  //   'Sweet Child O\' Mine',
+  //   'Wonderwall',
+  //   'Billie Jean',
+  //   'Come Together'
+  // ];
 
   filteredArtists!: Observable<string[]>;
   filteredSongs!: Observable<string[]>;
 
-  constructor(private cdr: ChangeDetectorRef, private store: Store) { }
+  constructor(
+    private cdr: ChangeDetectorRef, 
+    private store: Store,
+    private mainService: MainService ) { }
 
   ngOnInit() {
     this.preferenceForm = new FormGroup({
@@ -65,6 +69,8 @@ export class AddSongComponent {
       startWith(''),
       map(value => this._filter(value || '', this.songs))
     );
+
+    this.getArtists();
   }
 
   addSongToPreferences() {
@@ -87,6 +93,21 @@ export class AddSongComponent {
   displayFn(value: string): string {
     return value ? value : '';
   }
+
+  getArtists(): any {
+    this.mainService.getArtists().subscribe((artists) => {
+      this.artists = (artists as any[]).map((a: any) => a.ArtistName);
+      console.log(JSON.stringify(artists));
+    });
+  }
+
+  getSongsByArtist(artistId: string): any {
+    this.mainService.getSongsByArtist(Number(artistId)).subscribe((songs) => {
+      this.songs = (songs as any[]).map((s: any) => s.songName);
+      console.log(JSON.stringify(songs));
+    });
+  }
+
 
   // validateInput(event: Event, options: string[]): void {
   //   const inputElement = event.target as HTMLInputElement;
