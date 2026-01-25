@@ -21,6 +21,7 @@ export class AddSongComponent {
   artists: Artist[] = [];
   selectedArtist: Artist | null = null;
   songs: Song[] = [];
+  selectedSong: Song | null = null;
 
   filteredArtists!: Observable<Artist[]>;
   filteredSongs!: Observable<Song[]>;
@@ -45,12 +46,13 @@ export class AddSongComponent {
   }
 
   addSongToPreferences() {
-    const artist = this.artistControl.value;
-    const name = this.songControl.value;
-    if (!artist || !name) {
+    const artist = this.selectedArtist;
+    const song = this.selectedSong;
+    if (!artist || !song) {
       return;
     }
-    let choice: Choice = { artist: artist, name: name };
+    let choice: Choice = { ArtistName: artist.ArtistName, ArtistId: artist.ArtistId, 
+      TrackId: song.TrackId, TrackName: song.TrackName };
     this.store.dispatch(new AddSongToPlaylist(choice));
     this.artistControl.setValue('');
     this.songControl.setValue('');
@@ -84,9 +86,13 @@ export class AddSongComponent {
     });
   }
 
-  optionSelectHandler(selectedOption: Artist): void {
+  artistSelectHandler(selectedOption: Artist): void {
     this.selectedArtist = selectedOption;
     this.getSongsByArtist(this.selectedArtist.ArtistId);
+  }
+
+  songSelectHandler(selectedOption: Song): void {
+    this.selectedSong = selectedOption;
   }
 
   private filterArtists(value: string | Artist, options: Artist[]): Artist[] {

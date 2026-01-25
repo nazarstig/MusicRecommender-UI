@@ -1,4 +1,6 @@
 export interface Choice {
-  artist: string;
-  name: string;
+  ArtistId: string;
+  ArtistName: string;
+  TrackId: string;
+  TrackName: string;
 }
