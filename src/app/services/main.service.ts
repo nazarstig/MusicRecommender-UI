@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Artist } from '../models/artist';
+import { Song } from '../models/song';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +13,13 @@ export class MainService {
 
   constructor(private readonly http: HttpClient) { }
 
-  getArtists() {
-    const url = `${this.mainUrl}/artists`;
-    return this.http.get(url);
+  getArtists(artistName: string = ''): Observable<Artist[]> {
+    const url = `${this.mainUrl}/artists?artistName=${artistName}`;
+    return this.http.get<Artist[]>(url);
   }
 
-  getSongsByArtist(artistId: string) {
+  getSongsByArtist(artistId: string): Observable<Song[]> {
     const url = `${this.mainUrl}/songs?artistId=${artistId}`;
-    return this.http.get(url);
+    return this.http.get<Song[]>(url);
   }
 }

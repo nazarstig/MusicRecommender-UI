@@ -12,5 +12,4 @@ import { Observable, of } from 'rxjs';
 })
 export class PlaylistTableComponent {
   @Select(MainState.getPlaylistSongs) choices$!: Observable<Choice[]>;
-  //@Input() choices: Choice[] = [];
 }
