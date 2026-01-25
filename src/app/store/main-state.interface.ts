@@ -1,5 +1,5 @@
-import { SongInfo } from "../models/song-info";
+import { Choice } from "../models/choice";
 
 export interface IMainState {
-  playlistSongs: SongInfo[];
+  playlistSongs: Choice[];
 }

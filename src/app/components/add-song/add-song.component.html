@@ -5,9 +5,9 @@
             <mat-label>Artist</mat-label>
             <input type="text" matInput [formControl]="artistControl" [matAutocomplete]="artistAuto"
                 placeholder="Select an artist">
-            <mat-autocomplete #artistAuto="matAutocomplete" [displayWith]="displayFn">
+            <mat-autocomplete #artistAuto="matAutocomplete" [displayWith]="displayArtist" (optionSelected)="optionSelectHandler($event.option.value)">
                 <mat-option *ngFor="let artist of filteredArtists | async" [value]="artist">
-                    {{artist}}
+                    {{artist.ArtistName}}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
@@ -16,9 +16,9 @@
             <mat-label>Song</mat-label>
             <input type="text" matInput [formControl]="songControl" [matAutocomplete]="songAuto"
                 placeholder="Select a song">
-            <mat-autocomplete #songAuto="matAutocomplete">
+            <mat-autocomplete #songAuto="matAutocomplete" [displayWith]="displaySong">
                 <mat-option *ngFor="let song of filteredSongs | async" [value]="song">
-                    {{song}}
+                    {{song.TrackName}}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>

@@ -1,6 +1,6 @@
-import { SongInfo } from "../models/song-info";
+import { Choice } from "../models/choice";
 
 export class AddSongToPlaylist {
     static readonly type = '[Main] Add Song To Playlist';
-    constructor(public payload: SongInfo) { }
+    constructor(public payload: Choice) { }
 }

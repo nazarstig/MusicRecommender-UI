@@ -1,5 +1,5 @@
 import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { SongInfo } from "../models/song-info";
+import { Choice } from "../models/choice";
 import { IMainState } from "./main-state.interface";
 import { AddSongToPlaylist } from "./main.actions";
 
@@ -13,7 +13,7 @@ export const initialState: IMainState = {
 })
 export class MainState {
     @Selector()
-    static getPlaylistSongs(state: IMainState): SongInfo[] {
+    static getPlaylistSongs(state: IMainState): Choice[] {
         return state.playlistSongs;
     }
 

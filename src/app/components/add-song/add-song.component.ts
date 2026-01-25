@@ -1,10 +1,12 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
-import { SongInfo } from '../../models/song-info';
 import { Store } from '@ngxs/store';
 import { AddSongToPlaylist } from '../../store/main.actions';
 import { MainService } from '../../services/main.service';
+import { Artist } from '../../models/artist';
+import { Choice } from '../../models/choice';
+import { Song } from '../../models/song';
 
 @Component({
   selector: 'app-add-song',
@@ -13,41 +15,15 @@ import { MainService } from '../../services/main.service';
   standalone: false,
 })
 export class AddSongComponent {
-  preferenceForm: FormGroup = new FormGroup({});
-
   artistControl = new FormControl('');
   songControl = new FormControl('');
+  choices: Choice[] = [];
+  artists: Artist[] = [];
+  selectedArtist: Artist | null = null;
+  songs: Song[] = [];
 
-  choices: SongInfo[] = [];
-
-  artists: string[] = [];
-  //   'The Beatles',
-  //   'Queen',
-  //   'Led Zeppelin',
-  //   'Pink Floyd',
-  //   'The Rolling Stones',
-  //   'Nirvana',
-  //   'Radiohead',
-  //   'Arctic Monkeys',
-  //   'The Strokes',
-  //   'Red Hot Chili Peppers'
-  // ];
-
-  songs: string[] = [];
-  //   'Bohemian Rhapsody',
-  //   'Stairway to Heaven',
-  //   'Hotel California',
-  //   'Smells Like Teen Spirit',
-  //   'Imagine',
-  //   'Hey Jude',
-  //   'Sweet Child O\' Mine',
-  //   'Wonderwall',
-  //   'Billie Jean',
-  //   'Come Together'
-  // ];
-
-  filteredArtists!: Observable<string[]>;
-  filteredSongs!: Observable<string[]>;
+  filteredArtists!: Observable<Artist[]>;
+  filteredSongs!: Observable<Song[]>;
 
   constructor(
     private cdr: ChangeDetectorRef, 
@@ -55,19 +31,14 @@ export class AddSongComponent {
     private mainService: MainService ) { }
 
   ngOnInit() {
-    this.preferenceForm = new FormGroup({
-      username: new FormControl('',),
-      password: new FormControl('')
-    });
-
     this.filteredArtists = this.artistControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.artists))
+      map(value => this.filterArtists(value || '', this.artists))
     );
 
     this.filteredSongs = this.songControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.songs))
+      map(value => this.filterSongs(value || '', this.songs))
     );
 
     this.getArtists();
@@ -79,8 +50,8 @@ export class AddSongComponent {
     if (!artist || !name) {
       return;
     }
-    let song: SongInfo = { artist: artist, name: name };
-    this.store.dispatch(new AddSongToPlaylist(song));
+    let choice: Choice = { artist: artist, name: name };
+    this.store.dispatch(new AddSongToPlaylist(choice));
     this.artistControl.setValue('');
     this.songControl.setValue('');
     this.cdr.detectChanges();
@@ -90,40 +61,53 @@ export class AddSongComponent {
     console.log(this.choices);
   }
 
-  displayFn(value: string): string {
-    return value ? value : '';
+  displayArtist(value: Artist): string {
+    return value ? value.ArtistName : '';
+  }
+
+  displaySong(value: Song): string {
+    return value ? value.TrackName : '';
   }
 
   getArtists(): any {
-    this.mainService.getArtists().subscribe((artists) => {
-      this.artists = (artists as any[]).map((a: any) => a.ArtistName);
-      console.log(JSON.stringify(artists));
+    this.mainService.getArtists().subscribe((artists: any) => {
+      this.artists = artists;
+      this.artistControl.setValue('');
     });
   }
 
   getSongsByArtist(artistId: string): any {
-    this.mainService.getSongsByArtist(Number(artistId)).subscribe((songs) => {
-      this.songs = (songs as any[]).map((s: any) => s.songName);
+    this.mainService.getSongsByArtist(artistId).subscribe((songs: any) => {
+      this.songs = songs;
+      this.songControl.setValue('');
       console.log(JSON.stringify(songs));
     });
   }
 
+  optionSelectHandler(selectedOption: Artist): void {
+    this.selectedArtist = selectedOption;
+    this.getSongsByArtist(this.selectedArtist.ArtistId);
+  }
 
-  // validateInput(event: Event, options: string[]): void {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   const value = inputElement.value;
-    
-  //   // Check if the input value exists in the full list of options
-  //   const match = this.options.find(option => option.name === value);
+  private filterArtists(value: string | Artist, options: Artist[]): Artist[] {
+    let filterValue: string;
+    if (typeof value === 'string') {    
+      filterValue = value.toLowerCase();
+    }
+    else if (value as Artist) {
+      filterValue = value.ArtistName.toLowerCase();
+    }
+    return options.filter(option => option.ArtistName.toLowerCase().includes(filterValue));
+  }
 
-  //   if (!match) {
-  //     // If no match, clear the input value (or reset to a previous valid state)
-  //     this.event..setValue(null); 
-  //   }
-  // }
-
-  private _filter(value: string, options: string[]): string[] {
-    const filterValue = value.toLowerCase();
-    return options.filter(option => option.toLowerCase().includes(filterValue));
+  private filterSongs(value: string | Song, options: Song[]): Song[] {
+    let filterValue: string;
+    if (typeof value === 'string') {    
+      filterValue = value.toLowerCase();
+    }
+    else if (value as Song) {
+      filterValue = value.TrackName.toLowerCase();
+    }
+    return options.filter(option => option.TrackName.toLowerCase().includes(filterValue));
   }
 }

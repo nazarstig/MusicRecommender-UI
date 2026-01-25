@@ -15,7 +15,7 @@ export class MainService {
     return this.http.get(url);
   }
 
-  getSongsByArtist(artistId: number) {
+  getSongsByArtist(artistId: string) {
     const url = `${this.mainUrl}/songs?artistId=${artistId}`;
     return this.http.get(url);
   }

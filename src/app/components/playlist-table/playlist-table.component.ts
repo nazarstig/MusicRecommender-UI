@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SongInfo } from '../../models/song-info';
+import { Choice } from '../../models/choice';
 import { Select } from '@ngxs/store';
 import { MainState } from '../../store/main.state';
 import { Observable, of } from 'rxjs';
@@ -11,6 +11,6 @@ import { Observable, of } from 'rxjs';
   standalone: false,
 })
 export class PlaylistTableComponent {
-  @Select(MainState.getPlaylistSongs) choices$!: Observable<SongInfo[]>;
-  //@Input() choices: SongInfo[] = [];
+  @Select(MainState.getPlaylistSongs) choices$!: Observable<Choice[]>;
+  //@Input() choices: Choice[] = [];
 }

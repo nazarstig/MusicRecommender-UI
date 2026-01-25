@@ -1,4 +1,4 @@
-export interface SongInfo {
+export interface Choice {
   artist: string;
   name: string;
 }
