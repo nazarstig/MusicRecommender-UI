@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Artist } from '../models/artist';
 import { Song } from '../models/song';
+import { Choice } from '../models/choice';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,10 @@ export class MainService {
   getSongsByArtist(artistId: string): Observable<Song[]> {
     const url = `${this.mainUrl}/songs?artistId=${artistId}`;
     return this.http.get<Song[]>(url);
+  }
+
+  getRecommendations(): Observable<Choice[]> {
+    const url = `${this.mainUrl}/recommendations`;
+    return this.http.get<Choice[]>(url);
   }
 }

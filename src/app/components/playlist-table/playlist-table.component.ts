@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Choice } from '../../models/choice';
-import { Select } from '@ngxs/store';
-import { MainState } from '../../store/main.state';
-import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-playlist-table',
@@ -11,5 +8,7 @@ import { Observable, of } from 'rxjs';
   standalone: false,
 })
 export class PlaylistTableComponent {
-  @Select(MainState.getPlaylistSongs) choices$!: Observable<Choice[]>;
+  displayedColumns: string[] = ['artist', 'song'];
+  @Input() title: string = '';
+  @Input() songs: Choice[] | null = [];
 }

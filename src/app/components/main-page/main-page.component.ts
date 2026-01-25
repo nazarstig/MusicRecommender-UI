@@ -1,4 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MainState } from '../../store/main.state';
+import { Observable } from 'rxjs';
+import { Choice } from '../../models/choice';
+import { Select, Store } from '@ngxs/store';
+import { GetRecommendations } from '../../store/main.actions';
 
 @Component({
   selector: 'app-main-page',
@@ -10,8 +15,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 
 
 export class MainPageComponent implements OnInit {
+  @Select(MainState.getPlaylistSongs) choices$!: Observable<Choice[]>;
+  @Select(MainState.getRecommendations) recommendations$!: Observable<Choice[]>;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private store: Store) { }
 
   ngOnInit() { }
+
+  getRecommendations() {
+    this.store.dispatch(new GetRecommendations());
+  }
 }

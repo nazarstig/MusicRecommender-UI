@@ -4,14 +4,15 @@
 
   <div class="content-div">
     <div class="playlist-div">
-      <app-playlist-table></app-playlist-table>
+      <app-playlist-table title="Playlist Songs" [songs]="choices$ | async"></app-playlist-table>
       <app-add-song></app-add-song>
+      <app-playlist-table title="Recommendations" [songs]="recommendations$ | async"></app-playlist-table>
     </div>
     <div class="criterias-div">
       <app-criterias-list></app-criterias-list>
     </div>
   </div>
   <div class="recommendation-btn-div">
-    <button mat-raised-button color="primary">Get Recommendations</button>
+    <button mat-raised-button (click)="getRecommendations()" color="primary">Get Recommendations</button>
   </div>
 </div>
