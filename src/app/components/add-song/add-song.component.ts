@@ -49,11 +49,12 @@ export class AddSongComponent {
       return;
     }
     let choice: Choice = {
-      ArtistName: artist.ArtistName, ArtistId: artist.ArtistId,
-      TrackId: song.TrackId, TrackName: song.TrackName
+      ArtistName: artist.ArtistName, 
+      ArtistId: artist.ArtistId,
+      TrackId: song.TrackId, 
+      TrackName: song.TrackName
     };
     this.store.dispatch(new AddSongToPlaylist(choice));
-    this.artistControl.setValue('');
     this.songControl.setValue('');
     this.cdr.detectChanges();
   }
@@ -77,6 +78,21 @@ export class AddSongComponent {
 
   songSelectHandler(selectedOption: Song): void {
     this.selectedSong = selectedOption;
+  }
+
+  clearArtistSelection(event: Event): void {
+    event.stopPropagation();
+    this.artistControl.setValue('');
+    this.selectedArtist = null;
+    this.songs = [];
+    this.songControl.setValue('');
+    this.selectedSong = null;
+  }
+
+  clearSongSelection(event: Event): void {
+    event.stopPropagation();
+    this.songControl.setValue('');
+    this.selectedSong = null;
   }
 
   private getSongsByArtist(artistId: string): any {

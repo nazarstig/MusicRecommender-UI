@@ -8,21 +8,24 @@ export const initialState: IMainState = {
 };
 
 @State<IMainState>({
-    name: 'main',
-    defaults: initialState
+  name: 'main',
+  defaults: initialState
 })
 export class MainState {
-    @Selector()
-    static getPlaylistSongs(state: IMainState): Choice[] {
-        return state.playlistSongs;
-    }
+  @Selector()
+  static getPlaylistSongs(state: IMainState): Choice[] {
+    return state.playlistSongs;
+  }
 
-    @Action(AddSongToPlaylist)
-    addSongToPlaylist(ctx: StateContext<IMainState>, action: AddSongToPlaylist) {
-        const state = ctx.getState();
-        ctx.setState({
-            ...state,
-            playlistSongs: [...state.playlistSongs, action.payload]
-        });
+  @Action(AddSongToPlaylist)
+  addSongToPlaylist(ctx: StateContext<IMainState>, action: AddSongToPlaylist) {
+    const state = ctx.getState();
+    if (state.playlistSongs.find(song => song.TrackId === action.payload.TrackId)) {
+      return;
     }
+    ctx.setState({
+      ...state,
+      playlistSongs: [...state.playlistSongs, action.payload]
+    });
+  }
 }

@@ -5,7 +5,12 @@
             <mat-label>Artist</mat-label>
             <input type="text" matInput [formControl]="artistControl" [matAutocomplete]="artistAuto"
                 placeholder="Select an artist">
-            <mat-autocomplete #artistAuto="matAutocomplete" [displayWith]="displayArtist" (optionSelected)="artistSelectHandler($event.option.value)">
+            <button mat-icon-button matSuffix *ngIf="artistControl.value" (click)="clearArtistSelection($event)"
+                aria-label="Clear">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-autocomplete #artistAuto="matAutocomplete" [displayWith]="displayArtist"
+                (optionSelected)="artistSelectHandler($event.option.value)">
                 <mat-option *ngFor="let artist of filteredArtists | async" [value]="artist">
                     {{artist.ArtistName}}
                 </mat-option>
@@ -16,7 +21,12 @@
             <mat-label>Song</mat-label>
             <input type="text" matInput [formControl]="songControl" [matAutocomplete]="songAuto"
                 placeholder="Select a song">
-            <mat-autocomplete #songAuto="matAutocomplete" [displayWith]="displaySong" (optionSelected)="songSelectHandler($event.option.value)">
+            <button mat-icon-button matSuffix *ngIf="songControl.value" (click)="clearSongSelection($event)"
+                aria-label="Clear">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-autocomplete #songAuto="matAutocomplete" [displayWith]="displaySong"
+                (optionSelected)="songSelectHandler($event.option.value)">
                 <mat-option *ngFor="let song of filteredSongs | async" [value]="song">
                     {{song.TrackName}}
                 </mat-option>
