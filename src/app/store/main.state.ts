@@ -45,7 +45,7 @@ export class MainState {
   getRecommendations(ctx: StateContext<IMainState>, action: GetRecommendations) {
     const state = ctx.getState();
     // Placeholder for actual recommendation logic
-    this.mainService.getRecommendations().subscribe(recommendations => {
+    this.mainService.getRecommendations(action.trackIds).subscribe(recommendations => {
       const recommendation: Choice[] = recommendations;
       ctx.setState({
         ...state,

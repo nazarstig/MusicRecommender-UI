@@ -23,6 +23,8 @@ export class MainPageComponent implements OnInit {
   ngOnInit() { }
 
   getRecommendations() {
-    this.store.dispatch(new GetRecommendations());
+    const playlistSongs = this.store.selectSnapshot(MainState.getPlaylistSongs);
+    const trackIds = playlistSongs.map(song => song.TrackId);
+    this.store.dispatch(new GetRecommendations(trackIds));
   }
 }

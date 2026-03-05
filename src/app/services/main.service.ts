@@ -24,8 +24,8 @@ export class MainService {
     return this.http.get<Song[]>(url);
   }
 
-  getRecommendations(): Observable<Choice[]> {
+  getRecommendations(trackIds: string[]): Observable<Choice[]> {
     const url = `${this.mainUrl}/recommendations`;
-    return this.http.get<Choice[]>(url);
+    return this.http.post<Choice[]>(url, {"track_ids": trackIds});
   }
 }

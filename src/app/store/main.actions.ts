@@ -7,5 +7,5 @@ export class AddSongToPlaylist {
 
 export class GetRecommendations {
     static readonly type = '[Main] Get Recommendations';
-    constructor() { } 
+    constructor(public trackIds: string[]) { } 
 }
