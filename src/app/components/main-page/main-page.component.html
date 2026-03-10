@@ -4,12 +4,12 @@
 
   <div class="content-div">
     <div class="playlist-div">
-      <app-playlist-table title="Playlist Songs" [songs]="choices$ | async"></app-playlist-table>
+      <app-playlist-table title="Playlist Songs" [songs]="choices$ | async" [showDeleteButton]="true" (delete)="removeSongFromPlaylist($event)"></app-playlist-table>
+      <button class="clear-playlist-btn" mat-raised-button (click)="clearPlaylist()" color="warn">Clear Playlist</button>
       <app-add-song></app-add-song>
-      <app-playlist-table title="Recommendations" [songs]="recommendations$ | async"></app-playlist-table>
     </div>
     <div class="criterias-div">
-      <app-criterias-list></app-criterias-list>
+      <app-playlist-table title="Recommendations" [songs]="recommendations$ | async"></app-playlist-table>
     </div>
   </div>
   <div class="recommendation-btn-div">

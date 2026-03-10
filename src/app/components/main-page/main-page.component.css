@@ -20,6 +20,10 @@
     place-content: start;
     width: 300px;
     margin-left: 10px;
+
+    .clear-playlist-btn {
+      margin: 10px;
+    }
   }
 
   .criterias-div {
