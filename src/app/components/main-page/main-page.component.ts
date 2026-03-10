@@ -16,6 +16,7 @@ import { ClearPlaylist, GetRecommendations, RemoveSongFromPlaylist } from '../..
 export class MainPageComponent implements OnInit {
   @Select(MainState.getPlaylistSongs) choices$!: Observable<Choice[]>;
   @Select(MainState.getRecommendations) recommendations$!: Observable<Choice[]>;
+  @Select(MainState.getIsLoading) isLoading$!: Observable<boolean>;
 
   constructor(private store: Store) { }
 

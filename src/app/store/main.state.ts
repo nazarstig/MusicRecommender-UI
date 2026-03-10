@@ -4,10 +4,13 @@ import { IMainState } from "./main-state.interface";
 import { AddSongToPlaylist, ClearPlaylist, GetRecommendations, RemoveSongFromPlaylist } from "./main.actions";
 import { MainService } from "../services/main.service";
 import { Injectable } from "@angular/core";
+import { catchError, finalize, tap } from "rxjs/operators";
+import { of } from "rxjs";
 
 export const initialState: IMainState = {
   playlistSongs: [],
-  recommendations: []
+  recommendations: [],
+  isLoading: false
 };
 
 @State<IMainState>({
@@ -27,6 +30,11 @@ export class MainState {
   @Selector()
   static getRecommendations(state: IMainState): Choice[] {
     return state.recommendations;
+  }
+
+  @Selector()
+  static getIsLoading(state: IMainState): boolean {
+    return state.isLoading;
   }
 
   @Action(AddSongToPlaylist)
@@ -62,14 +70,19 @@ export class MainState {
 
   @Action(GetRecommendations)
   getRecommendations(ctx: StateContext<IMainState>, action: GetRecommendations) {
-    const state = ctx.getState();
-    // Placeholder for actual recommendation logic
-    this.mainService.getRecommendations(action.trackIds).subscribe(recommendations => {
-      const recommendation: Choice[] = recommendations;
-      ctx.setState({
-        ...state,
-        recommendations: recommendations
-      });
-    });
+    ctx.patchState({ isLoading: true });
+
+    return this.mainService.getRecommendations(action.trackIds).pipe(
+      tap((recommendations) => {
+        ctx.patchState({ recommendations });
+      }),
+      catchError(() => {
+        ctx.patchState({ recommendations: [] });
+        return of([] as Choice[]);
+      }),
+      finalize(() => {
+        ctx.patchState({ isLoading: false });
+      })
+    );
   }
 }

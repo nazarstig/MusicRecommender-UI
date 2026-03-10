@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { CriteriasListComponent } from './components/criterias-list/criterias-list.component';
 import { AddSongComponent } from './components/add-song/add-song.component';
@@ -36,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatSelectModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatIconModule,

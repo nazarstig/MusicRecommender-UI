@@ -3,4 +3,5 @@ import { Choice } from "../models/choice";
 export interface IMainState {
   playlistSongs: Choice[];
   recommendations: Choice[];
+  isLoading: boolean;
 }
