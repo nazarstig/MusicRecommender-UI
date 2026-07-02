@@ -26,6 +26,18 @@ export class MainService {
 
   getRecommendations(trackIds: string[]): Observable<Choice[]> {
     const url = `${this.mainUrl}/recommendations`;
-    return this.http.post<Choice[]>(url, {"track_ids": trackIds});
+    return this.http.post<Choice[]>(url, { "track_ids": trackIds });
+  }
+
+  getRecommendations_test(): Observable<Choice[]> {
+    const ids: string[] = [
+      "c4d39965-d309-4863-b632-4f26920df4db",
+      "6aa61f81-fe9f-43f1-a712-32492a40983a",
+      "55dc4892-b5ae-44bd-79e98-2a0d4dd53cbc",
+      "cada1d51-60db-4592-ab5f-ed36a4516703",
+      "3a0be7df-1b08-40ad-816f-b8e3c3e17aea"
+    ];
+    const url = `${this.mainUrl}/recommendations`;
+    return this.http.post<Choice[]>(url, { "track_ids": ids });
   }
 }

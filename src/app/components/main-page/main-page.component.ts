@@ -3,7 +3,7 @@ import { MainState } from '../../store/main.state';
 import { Observable } from 'rxjs';
 import { Choice } from '../../models/choice';
 import { Select, Store } from '@ngxs/store';
-import { ClearPlaylist, GetRecommendations, RemoveSongFromPlaylist } from '../../store/main.actions';
+import { ClearPlaylist, GetRecommendations, GetRecommendationsTest, RemoveSongFromPlaylist } from '../../store/main.actions';
 
 @Component({
   selector: 'app-main-page',
@@ -26,6 +26,12 @@ export class MainPageComponent implements OnInit {
     const playlistSongs = this.store.selectSnapshot(MainState.getPlaylistSongs);
     const trackIds = playlistSongs.map(song => song.TrackId);
     this.store.dispatch(new GetRecommendations(trackIds));
+  }
+
+  getRecommendations_test() {
+    const playlistSongs = this.store.selectSnapshot(MainState.getPlaylistSongs);
+    const trackIds = playlistSongs.map(song => song.TrackId);
+    this.store.dispatch(new GetRecommendationsTest(trackIds));
   }
 
   clearPlaylist() {

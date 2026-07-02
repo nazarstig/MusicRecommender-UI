@@ -18,3 +18,8 @@ export class GetRecommendations {
     static readonly type = '[Main] Get Recommendations';
     constructor(public trackIds: string[]) { } 
 }
+
+export class GetRecommendationsTest {
+    static readonly type = '[Main] Get Recommendations Test';
+    constructor(public trackIds: string[]) { } 
+}

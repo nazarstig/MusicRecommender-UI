@@ -1,7 +1,7 @@
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { Choice } from "../models/choice";
 import { IMainState } from "./main-state.interface";
-import { AddSongToPlaylist, ClearPlaylist, GetRecommendations, RemoveSongFromPlaylist } from "./main.actions";
+import { AddSongToPlaylist, ClearPlaylist, GetRecommendations, GetRecommendationsTest, RemoveSongFromPlaylist } from "./main.actions";
 import { MainService } from "../services/main.service";
 import { Injectable } from "@angular/core";
 import { catchError, finalize, tap } from "rxjs/operators";
@@ -73,6 +73,24 @@ export class MainState {
     ctx.patchState({ isLoading: true });
 
     return this.mainService.getRecommendations(action.trackIds).pipe(
+      tap((recommendations) => {
+        ctx.patchState({ recommendations });
+      }),
+      catchError(() => {
+        ctx.patchState({ recommendations: [] });
+        return of([] as Choice[]);
+      }),
+      finalize(() => {
+        ctx.patchState({ isLoading: false });
+      })
+    );
+  }
+
+  @Action(GetRecommendationsTest)
+  getRecommendationsTest(ctx: StateContext<IMainState>, action: GetRecommendationsTest) {
+    ctx.patchState({ isLoading: true });
+
+    return this.mainService.getRecommendations_test().pipe(
       tap((recommendations) => {
         ctx.patchState({ recommendations });
       }),
